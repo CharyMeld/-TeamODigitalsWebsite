@@ -1,0 +1,22 @@
+[0;1;32m●[0m docker.service - Docker Application Container Engine
+     Loaded: loaded (]8;;file://charles/usr/lib/systemd/system/docker.service/usr/lib/systemd/system/docker.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Thu 2025-10-02 11:45:40 WAT; 1min 21s ago
+TriggeredBy: [0;1;32m●[0m docker.socket
+       Docs: ]8;;https://docs.docker.comhttps://docs.docker.com]8;;
+   Main PID: 49789 (dockerd)
+      Tasks: 15
+     Memory: 29.7M (peak: 29.9M)
+        CPU: 1.308s
+     CGroup: /system.slice/docker.service
+             └─[0;38;5;245m49789 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock[0m
+
+Oct 02 11:45:31 charles dockerd[49789]: time="2025-10-02T11:45:31.344712209+01:00" level=info msg="[graphdriver] using prior storage driver: overlay2"
+Oct 02 11:45:33 charles dockerd[49789]: time="2025-10-02T11:45:33.667403873+01:00" level=info msg="Loading containers: start."
+Oct 02 11:45:34 charles dockerd[49789]: time="2025-10-02T11:45:34.915549547+01:00" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Daemon option --bip can be used to set a preferred IP address"
+Oct 02 11:45:35 charles dockerd[49789]: time="2025-10-02T11:45:35.165343906+01:00" level=warning msg="error locating sandbox id 3d06b97aa39fc814f86952e1e47452d4c0a44a53203419060a37c290bfdd46cc: sandbox 3d06b97aa39fc814f86952e1e47452d4c0a44a53203419060a37c290bfdd46cc not found"
+Oct 02 11:45:35 charles dockerd[49789]: time="2025-10-02T11:45:35.165412624+01:00" level=warning msg="error locating sandbox id 680ba71c12ce17de94519aa22b5e269b710c11af83ffdac77b3fc0cf5d83bb6d: sandbox 680ba71c12ce17de94519aa22b5e269b710c11af83ffdac77b3fc0cf5d83bb6d not found"
+Oct 02 11:45:35 charles dockerd[49789]: time="2025-10-02T11:45:35.165736876+01:00" level=info msg="Loading containers: done."
+Oct 02 11:45:35 charles dockerd[49789]: time="2025-10-02T11:45:35.922775135+01:00" level=info msg="Docker daemon" commit="27.5.1-0ubuntu3~24.04.2" containerd-snapshotter=false storage-driver=overlay2 version=27.5.1
+Oct 02 11:45:35 charles dockerd[49789]: time="2025-10-02T11:45:35.922904111+01:00" level=info msg="Daemon has completed initialization"
+Oct 02 11:45:40 charles dockerd[49789]: time="2025-10-02T11:45:40.328510742+01:00" level=info msg="API listen on /run/docker.sock"
+Oct 02 11:45:40 charles systemd[1]: Started docker.service - Docker Application Container Engine.

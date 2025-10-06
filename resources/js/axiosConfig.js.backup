@@ -1,0 +1,122 @@
+// resources/js/axiosConfig.js
+import axios from "axios";
+
+/**
+ * Initialize CSRF cookie before any request
+ * This ensures Laravel recognizes the session and prevents 419 errors
+ */
+async function initCsrf() {
+  try {
+    await axios.get("/sanctum/csrf-cookie", { withCredentials: true });
+  } catch (err) {
+    console.error("Failed to initialize CSRF cookie:", err);
+  }
+}
+
+const apiClient = axios.create({
+  baseURL: "http://127.0.0.1:8000", // Laravel API base URL
+  withCredentials: true,
+  headers: {
+    "X-Requested-With": "XMLHttpRequest",
+    "Accept": "application/json",
+  },
+});
+
+//  Request Interceptor — Initialize CSRF cookie + attach token
+apiClient.interceptors.request.use(
+  async (config) => {
+    await initCsrf(); // Always refresh CSRF before requests
+
+    // Attach bearer token if available
+    const token = localStorage.getItem("auth_token") || localStorage.getItem("api_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    // Attach CSRF token from meta tag (for extra safety)
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
+    if (csrfToken) {
+      config.headers["X-CSRF-TOKEN"] = csrfToken;
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+//  Response Interceptor — Handle expired sessions
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      console.warn("API request failed with 401 — redirecting to login...");
+      localStorage.removeItem("auth_token");
+      localStorage.removeItem("api_token");
+
+      if (window.Inertia) {
+        window.Inertia.visit("/login");
+      } else {
+        window.location.href = "/login";
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
+//  Also configure global axios instance for non-apiClient usage
+function configureGlobalAxios() {
+  axios.defaults.baseURL = "http://127.0.0.1:8000";
+  axios.defaults.withCredentials = true;
+  axios.defaults.headers.common["Accept"] = "application/json";
+  axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
+  axios.interceptors.request.use(
+    async (config) => {
+      await initCsrf();
+
+      const token = localStorage.getItem("auth_token") || localStorage.getItem("api_token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
+      if (csrfToken) {
+        config.headers["X-CSRF-TOKEN"] = csrfToken;
+      }
+
+      config.withCredentials = true;
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
+
+  axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response?.status === 401) {
+        const isLoginPage = window.location.pathname === "/login";
+        const isApiCall = error.config?.url?.startsWith("/api/");
+
+        if (!isLoginPage && isApiCall) {
+          console.warn("Global axios: API authentication failed");
+          localStorage.removeItem("auth_token");
+          localStorage.removeItem("api_token");
+
+          if (window.Inertia) {
+            window.Inertia.visit("/login");
+          } else {
+            window.location.href = "/login";
+          }
+        }
+      }
+      return Promise.reject(error);
+    }
+  );
+}
+
+// Configure global axios immediately
+configureGlobalAxios();
+
+export default apiClient;
+export { configureGlobalAxios, initCsrf };
+

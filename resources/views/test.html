@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Button Test</title>
+</head>
+<body>
+    <h1>Basic JavaScript Test</h1>
+    <p>If buttons work here, the issue is with Vue/Inertia</p>
+    
+    <button id="test-btn" onclick="testClick()">Test Button</button>
+    <button id="alert-btn" onclick="showAlert()">Alert Button</button>
+    
+    <div id="output"></div>
+    
+    <script>
+        function testClick() {
+            console.log('Basic button clicked!');
+            document.getElementById('output').innerHTML = 'Button clicked at: ' + new Date();
+        }
+        
+        function showAlert() {
+            alert('Alert works!');
+        }
+        
+        // Test if JavaScript is working at all
+        console.log('JavaScript loaded successfully');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+        });
+    </script>
+</body>
+</html>

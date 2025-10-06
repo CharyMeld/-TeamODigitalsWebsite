@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://teamodigitalsolutions.com/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+
+# Allow important pages
+Allow: /
+Allow: /about
+Allow: /contact
+Allow: /blog
+Allow: /services
+Allow: /gallery
+
+# Crawl delay
+Crawl-delay: 1

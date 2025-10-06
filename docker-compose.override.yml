@@ -1,0 +1,6 @@
+version: '3'
+services:
+  laravel.test:
+    ports:
+      - "5176:5176"   # Expose Vite dev server
+

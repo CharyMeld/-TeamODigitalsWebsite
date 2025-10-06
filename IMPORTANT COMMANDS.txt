@@ -1,0 +1,30 @@
+docker exec -it teamo-digital-solutions-laravel.test-1 php artisan route:clear
+docker exec -it teamo-digital-solutions-laravel.test-1 php artisan config:clear
+docker exec -it teamo-digital-solutions-laravel.test-1 php artisan cache:clear
+docker exec -it teamo-digital-solutions-laravel.test-1 composer dump-autoload
+./vendor/bin/sail up -d
+./vendor/bin/sail npm run dev -- --port 5176
+
+docker exec -it teamo-digital-solutions-laravel.test-1 php artisan optimize
+
+./vendor/bin/sail artisan tinker
+./vendor/bin/sail artisan migrate:fresh --seed
+
+
+Find your Laravel backend URL:docker-compose ps
+
+
+
+docker exec -it teamo-digital-solutions-laravel.test-1 php artisan route:list | grep leave-requests
+ 
+ 
+ 
+ 
+ Then in your .env (frontend):
+
+VITE_API_BASE_URL=http://127.0.0.1:8000
+
+
+And in production you can just change the env without touching code:
+
+VITE_API_BASE_URL=https://yourdomain.com

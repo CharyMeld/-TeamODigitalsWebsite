@@ -1,0 +1,439 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import '../../../node_modules/vue-select/dist/vue-select.css';
+@import 'vue-select/dist/vue-select.css';
+
+[x-cloak] {
+    display: none;
+}
+
+@layer base {
+  :root {
+    /* Strict 3-Color Palette */
+    --white: #ffffff;
+    --cornflower-blue: #6495ED;
+    --black: #000000;
+  }
+
+  * {
+    border-color: theme('colors.cornflower.DEFAULT');
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-black;
+    padding-top: 120px; /* offset for fixed header */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-black;
+  }
+
+  p {
+    @apply text-black;
+  }
+}
+
+@layer components {
+  /* Header Styles */
+  .site-header {
+    @apply relative z-50;
+  }
+
+  .header-top {
+    @apply fixed top-0 left-0 right-0 shadow-lg z-50;
+    background-color: var(--cornflower-blue);
+  }
+
+  .header-container {
+    @apply max-w-7xl mx-auto px-4 py-2 flex items-center justify-between gap-4;
+  }
+
+  .brand {
+    @apply flex items-center gap-4 min-w-0;
+  }
+
+  .brand h1 {
+    @apply text-white text-xl md:text-2xl font-bold m-0 whitespace-nowrap overflow-hidden text-ellipsis;
+  }
+
+  .logo {
+    @apply h-12 w-auto object-contain;
+  }
+
+  /* Navigation */
+  .site-nav {
+    @apply fixed left-0 right-0 px-3 z-40 border-b-2 border-black;
+    top: 66px;
+    background-color: var(--cornflower-blue);
+  }
+
+  .nav-container {
+    @apply max-w-7xl mx-auto h-14 flex items-center;
+  }
+
+  .nav-menu {
+    @apply flex items-center gap-5 list-none m-0 p-0 h-full w-full;
+  }
+
+  .nav-link {
+    @apply flex items-center justify-center h-full px-4 py-2 text-white no-underline rounded-md transition-all duration-300;
+  }
+
+  .nav-link:hover {
+    @apply text-white bg-black;
+  }
+
+  .nav-link.active {
+    @apply bg-black text-white;
+  }
+
+  /* Search Form */
+  .search-form {
+    @apply flex items-center gap-2 bg-white px-2 py-1 rounded-lg border-2 border-black;
+  }
+
+  .search-form input {
+    @apply border-0 outline-none bg-white text-black w-44;
+  }
+
+  .search-form input::placeholder {
+    @apply text-black;
+  }
+
+  .search-form button {
+    @apply border-0 bg-black text-white px-3 py-1 rounded-md cursor-pointer transition-colors;
+  }
+
+  .search-form button:hover {
+    background-color: var(--cornflower-blue);
+  }
+
+  /* Hamburger Menu */
+  .hamburger {
+    @apply hidden border-2 border-white bg-white text-black text-xl px-2 py-2 rounded-lg cursor-pointer;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-2 rounded-md font-medium no-underline cursor-pointer transition-all duration-300;
+  }
+
+  .btn-primary {
+    @apply text-white border-2;
+    background-color: var(--cornflower-blue);
+    border-color: var(--cornflower-blue);
+  }
+
+  .btn-primary:hover {
+    @apply bg-black border-black text-white transform -translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-black border-2;
+    border-color: var(--cornflower-blue);
+    color: var(--cornflower-blue);
+  }
+
+  .btn-secondary:hover {
+    @apply text-white;
+    background-color: var(--cornflower-blue);
+  }
+
+  .btn-outline {
+    @apply bg-white text-black border-2 border-black;
+  }
+
+  .btn-outline:hover {
+    @apply bg-black text-white;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden border-2 transition-all duration-300;
+    border-color: var(--cornflower-blue);
+  }
+
+  .card:hover {
+    @apply transform -translate-y-1 shadow-xl border-black;
+  }
+
+  .card-header {
+    @apply px-8 py-6 text-white;
+    background-color: var(--cornflower-blue);
+  }
+
+  .card-header h3,
+  .card-header h4,
+  .card-header * {
+    @apply text-white;
+  }
+
+  .card-body {
+    @apply px-8 py-6 bg-white text-black;
+  }
+
+  .card-footer {
+    @apply px-6 py-4 bg-white border-t-2 text-black;
+    border-color: var(--cornflower-blue);
+  }
+
+  /* Service Cards */
+  .service-card {
+    @apply text-center px-8 py-8 rounded-xl bg-white shadow-lg transition-all duration-200 border-2;
+    border-color: var(--cornflower-blue);
+  }
+
+  .service-card:hover {
+    @apply transform -translate-y-1 shadow-xl border-black;
+  }
+
+  .service-card img,
+  .service-icon {
+    @apply w-48 h-48 object-cover block mx-auto mb-4 rounded-2xl bg-white border-2;
+    border-color: var(--cornflower-blue);
+  }
+
+  .service-card h3 {
+    @apply text-xl font-semibold text-black mb-2;
+  }
+
+  .service-card p {
+    @apply text-base leading-relaxed text-black;
+  }
+
+  /* Footer */
+  .footer {
+    @apply text-white py-10 border-t-2 border-black;
+    background-color: var(--cornflower-blue);
+  }
+
+  .footer * {
+    @apply text-white;
+  }
+
+  .footer a {
+    @apply text-white no-underline transition-all duration-300;
+  }
+
+  .footer a:hover {
+    @apply text-black bg-white px-1 rounded;
+  }
+
+  .footer-container {
+    @apply w-full mx-auto flex flex-col items-center text-center;
+  }
+
+  .footer-top {
+    @apply flex flex-wrap justify-between w-full max-w-7xl pb-5 border-b-2 border-white;
+  }
+
+  .footer-col {
+    @apply flex-1 p-4 min-w-52;
+  }
+
+  .footer-col-wide {
+    @apply flex-auto;
+  }
+
+  .footer-col h4 {
+    @apply text-lg mb-4 font-semibold text-white;
+  }
+
+  .footer-col ul {
+    @apply list-none p-0;
+  }
+
+  .footer-col ul li {
+    @apply my-2;
+  }
+
+  .footer-col p {
+    @apply flex items-center text-sm my-2 justify-center text-white;
+  }
+
+  .footer-col p i {
+    @apply mr-2 text-base text-white;
+  }
+
+  .social-links {
+    @apply flex justify-center gap-4;
+  }
+
+  .social-links a {
+    @apply text-xl text-white transition-all duration-300 p-2 rounded-full border-2 border-white;
+  }
+
+  .social-links a:hover {
+    @apply bg-white;
+    color: var(--cornflower-blue);
+  }
+
+  .footer-bottom {
+    @apply mt-5 text-sm text-white;
+  }
+
+  /* Section Variations */
+  .section-white {
+    @apply bg-white text-black;
+  }
+
+  .section-cornflower {
+    @apply text-white;
+    background-color: var(--cornflower-blue);
+  }
+
+  .section-cornflower h1,
+  .section-cornflower h2,
+  .section-cornflower h3,
+  .section-cornflower h4,
+  .section-cornflower h5,
+  .section-cornflower h6,
+  .section-cornflower p {
+    @apply text-white;
+  }
+
+  .section-black {
+    @apply bg-black text-white;
+  }
+
+  .section-black h1,
+  .section-black h2,
+  .section-black h3,
+  .section-black h4,
+  .section-black h5,
+  .section-black h6,
+  .section-black p {
+    @apply text-white;
+  }
+
+  /* Content Areas */
+  .content-wrapper {
+    @apply bg-white px-8 py-8 my-6 rounded-lg shadow-md text-black border-2;
+    border-color: var(--cornflower-blue);
+  }
+
+  .hero-section {
+    @apply bg-white text-black py-16 border-b-2;
+    border-color: var(--cornflower-blue);
+  }
+
+  .hero-section h1 {
+    @apply text-black;
+  }
+
+  .hero-section p {
+    @apply text-black;
+  }
+
+  /* Section Titles */
+  .section-title {
+    @apply text-black text-3xl font-bold mb-4;
+  }
+
+  .section-text {
+    @apply text-lg leading-relaxed text-black;
+  }
+
+  .section-cornflower .section-title,
+  .section-black .section-title {
+    @apply text-white;
+  }
+
+  .section-cornflower .section-text,
+  .section-black .section-text {
+    @apply text-white;
+  }
+}
+
+@layer utilities {
+  /* Custom 3-Color Utilities */
+  .text-cornflower {
+    color: var(--cornflower-blue);
+  }
+
+  .bg-cornflower {
+    background-color: var(--cornflower-blue);
+  }
+
+  .border-cornflower {
+    border-color: var(--cornflower-blue);
+  }
+
+  .hover\:bg-cornflower:hover {
+    background-color: var(--cornflower-blue);
+  }
+
+  .hover\:text-cornflower:hover {
+    color: var(--cornflower-blue);
+  }
+
+  .hover\:border-cornflower:hover {
+    border-color: var(--cornflower-blue);
+  }
+
+  /* Alternating Section Pattern */
+  .section-pattern > *:nth-child(odd) {
+    @apply bg-white text-black;
+  }
+
+  .section-pattern > *:nth-child(even) {
+    @apply text-white;
+    background-color: var(--cornflower-blue);
+  }
+
+  .section-pattern > *:nth-child(even) h1,
+  .section-pattern > *:nth-child(even) h2,
+  .section-pattern > *:nth-child(even) h3,
+  .section-pattern > *:nth-child(even) h4,
+  .section-pattern > *:nth-child(even) h5,
+  .section-pattern > *:nth-child(even) h6,
+  .section-pattern > *:nth-child(even) p {
+    @apply text-white;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 992px) {
+  .site-header .search-form input {
+    @apply w-32;
+  }
+  
+  .hamburger {
+    @apply inline-flex items-center justify-center;
+  }
+  
+  .site-nav {
+    top: 56px;
+  }
+  
+  .nav-container {
+    @apply h-auto py-2;
+  }
+  
+  .nav-menu {
+    @apply hidden flex-col items-stretch gap-2;
+  }
+  
+  .site-nav.open .nav-menu {
+    @apply flex;
+  }
+  
+  .nav-link {
+    @apply justify-start px-4 py-3;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-top {
+    @apply flex-col items-center gap-3;
+  }
+  
+  .footer-col p {
+    @apply justify-center;
+  }
+}
